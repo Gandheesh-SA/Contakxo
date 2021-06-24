@@ -1,15 +1,25 @@
 import 'dart:math';
+import 'package:contakxo/constants/textStyles..dart';
+import 'package:contakxo/database/database.dart';
 import 'package:contakxo/models/contacts.dart';
+import 'package:contakxo/screens/contactdashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:contakxo/services/callservice.dart';
 
-class ContactCard extends StatelessWidget {
+class ContactCard extends StatefulWidget {
 
-  final Contacts contact;
+  final Contacts  contact;
 
-  ContactCard({required this.contact});
+  ContactCard({ required this.contact,});
 
   @override
+  _ContactCardState createState() => _ContactCardState();
+}
+
+class _ContactCardState extends State<ContactCard> {
+  @override
   Widget build(BuildContext context) {
+    CallService callService = CallService();
     return Padding(
         padding: EdgeInsets.only(
           left: 25.0,
@@ -17,7 +27,9 @@ class ContactCard extends StatelessWidget {
           top: 30,
         ),
         child: Card(
+          elevation: 3.0,
           shape: RoundedRectangleBorder(
+
             borderRadius:
             BorderRadius.all(Radius.circular(20.0)),
           ),
@@ -27,26 +39,26 @@ class ContactCard extends StatelessWidget {
             padding: const EdgeInsets.all(25.0),
             child: ExpansionTile(
 
-              title: Text(
-                contact.name,
-                style: TextStyle(color: Colors.black),
+              title: SelectableText(
+                widget.contact.name,
+                style: headingThree,
               ),
               subtitle: Column(
                 crossAxisAlignment:
                 CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    contact.email,
+                  SelectableText(
+                    widget.contact.email,
                     style:
-                    TextStyle(color: Colors.black),
+                    headingFive,
                   ),
                   SizedBox(
                     height: 5.0,
                   ),
-                  Text(
-                    contact.contactnumber.toString(),
+                  SelectableText(
+                    widget.contact.contactnumber.toString(),
                     style:
-                    TextStyle(color: Colors.black),
+                    headingFive,
                   ),
                 ],
               ),
@@ -56,35 +68,36 @@ class ContactCard extends StatelessWidget {
                   MainAxisAlignment.spaceEvenly,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => callService.call(widget.contact.contactnumber.toString()),
                       child: Text(
                         'Phone',
-                        style: TextStyle(
-                            color: Colors.black),
+                        style: headingFive,
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => callService.email(widget.contact.email),
                       child: Text(
                         'Email',
-                        style: TextStyle(
-                            color: Colors.black),
+                        style: headingFive,
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => callService.sms(widget.contact.contactnumber.toString()),
                       child: Text(
-                        'Edit',
-                        style: TextStyle(
-                            color: Colors.black),
+                        'SMS',
+                        style: headingFive,
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await ContactsDatabase.instance.delete(widget.contact.id!);
+                        Navigator.of(context).pop();
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ContactDashBoard()),);
+                      },
                       child: Text(
                         'Delete',
-                        style: TextStyle(
-                            color: Colors.black),
+                        style: headingFive,
                       ),
                     ),
                   ],

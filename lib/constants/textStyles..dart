@@ -14,16 +14,16 @@ TextStyle headingTwo =  GoogleFonts.ubuntu(
 );
 TextStyle headingThree  = GoogleFonts.ubuntu(
   fontSize: 18,
-  fontWeight: FontWeight.normal,
+  fontWeight: FontWeight.bold,
   color: Colors.black,
 );
 TextStyle headingFour  = GoogleFonts.ubuntu(
   fontSize: 24,
   fontWeight: FontWeight.normal,
-  color: Colors.white,
+  color: Colors.black,
 );
 TextStyle headingFive  = GoogleFonts.ubuntu(
-  fontSize: 18,
+  fontSize: 15,
   fontWeight: FontWeight.normal,
   color: Colors.black,
 );

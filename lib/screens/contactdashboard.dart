@@ -35,12 +35,7 @@ class _ContactDashBoardState extends State<ContactDashBoard> {
 
   }
 
-  @override
-  void dispose() {
-    ContactsDatabase.instance.close();
 
-    super.dispose();
-  }
 
 
   Future refreshScreen() async {
@@ -101,6 +96,7 @@ class _ContactDashBoardState extends State<ContactDashBoard> {
                     height: 10.0,
                   ),
                   AnimSearchBar(
+                    helpText: 'Not Working',
                     width: 400,
                     textController: textController,
                     onSuffixTap: (){},
@@ -115,14 +111,14 @@ class _ContactDashBoardState extends State<ContactDashBoard> {
                     )
                   : contacts.isEmpty
                       ? Center(
-                          child: Text('No contacts present'),
+                          child: Text('No contacts present', style: headingFour,),
                         )
                       : ListView.builder(
                           itemCount: contacts.length,
                           itemBuilder: (_, index) {
                             final contact = contacts[index];
 
-                            return ContactCard(contact: contact,);
+                            return ContactCard(contact: contact);
                           }),
             ),
           ],

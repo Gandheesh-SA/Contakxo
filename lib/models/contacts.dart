@@ -49,6 +49,8 @@ class Contacts {
          email: email ?? this.email,
          contactnumber: contactnumber??  this.contactnumber
       );
+
+
    static Contacts fromJson(Map<String, Object?> json) => Contacts(
       id: json[ContactFields.id] as int?,
       name: json[ContactFields.name] as String,
